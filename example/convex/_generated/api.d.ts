@@ -8,8 +8,7 @@
  * @module
  */
 
-import type * as example from "../example.js";
-import type * as http from "../http.js";
+import type * as yconvex from "../yconvex.js";
 
 import type {
   ApiFromModules,
@@ -18,8 +17,7 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
-  example: typeof example;
-  http: typeof http;
+  yconvex: typeof yconvex;
 }>;
 
 /**
@@ -49,5 +47,5 @@ export declare const internal: FilterApi<
 >;
 
 export declare const components: {
-  yConvex: import("@nucleus48/y-convex/_generated/component.js").ComponentApi<"yConvex">;
+  yconvex: import("@nucleus48/y-convex/_generated/component.js").ComponentApi<"yconvex">;
 };

@@ -104,5 +104,8 @@
       "esbuild",
       "@tailwindcss/oxide"
     ]
+  },
+  "dependencies": {
+    "yjs": "^13.6.29"
   }
 }

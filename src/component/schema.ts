@@ -2,9 +2,12 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
-  comments: defineTable({
-    text: v.string(),
-    userId: v.string(), // Note: you can't use v.id referring to external tables
-    targetId: v.string(),
-  }).index("targetId", ["targetId"]),
+  update: defineTable({
+    docId: v.string(),
+    update: v.bytes(),
+  }).index("by_doc_id", ["docId"]),
+  snapshot: defineTable({
+    docId: v.string(),
+    fileId: v.id("_storage"),
+  }).index("by_doc_id", ["docId"]),
 });

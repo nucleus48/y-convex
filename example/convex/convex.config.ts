@@ -1,7 +1,7 @@
 import { defineApp } from "convex/server";
-import yConvex from "@nucleus48/y-convex/convex.config.js";
+import yconvex from "@nucleus48/y-convex/convex.config";
 
 const app = defineApp();
-app.use(yConvex);
+app.use(yconvex);
 
 export default app;
