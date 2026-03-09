@@ -1,146 +1,161 @@
-# Convex Component Template
+# @nucleus48/y-convex
 
-This is a Convex component, ready to be published on npm.
+[![npm version](https://img.shields.io/npm/v/@nucleus48/y-convex.svg)](https://www.npmjs.com/package/@nucleus48/y-convex)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-To create your own component:
+**Real-time Yjs synchronization for Convex.**
 
-1. Write code in src/component for your component. Component-specific tables,
-   queries, mutations, and actions go here.
-1. Write code in src/client for the Class that interfaces with the component.
-   This is the bridge your users will access to get information into and out of
-   your component
-1. Write example usage in example/convex/example.ts.
-1. Delete the text in this readme until `---` and flesh out the README.
-1. Publish to npm with `npm run alpha` or `npm run release`.
+## Why Y-Convex?
 
-To develop your component run a dev process in the example project:
+Most Yjs providers rely on WebSockets (like `y-websocket`). While effective,
+they require maintaining a separate server or serverless fleet. `y-convex`
+offers several advantages:
 
-```sh
-npm i
-npm run dev
-```
+- **Serverless**: No WebSocket servers to manage. All sync logic runs as Convex
+  functions.
+- **Transactional**: Updates are stored with Convex's ACID guarantees, ensuring
+  document integrity.
+- **Unified Backend**: Keep your collaborative state alongside your other
+  application data in Convex.
+- **Reactive**: Leverages Convex's built-in reactivity to broadcast changes to
+  all clients instantly.
 
-`npm i` will do the install and an initial build. `npm run dev` will start a
-file watcher to re-build the component, as well as the example project frontend
-and backend, which does codegen and installs the component.
+## Features
 
-Modify the schema and index files in src/component/ to define your component.
-
-Write a client for using this component in src/client/index.ts.
-
-If you won't be adding frontend code (e.g. React components) to this component
-you can delete "./react" references in package.json and "src/react/" directory.
-If you will be adding frontend code, add a peer dependency on React in
-package.json.
-
-### Component Directory structure
-
-```
-.
-├── README.md           documentation of your component
-├── package.json        component name, version number, other metadata
-├── package-lock.json   Components are like libraries, package-lock.json
-│                       is .gitignored and ignored by consumers.
-├── src
-│   ├── component/
-│   │   ├── _generated/ Files here are generated for the component.
-│   │   ├── convex.config.ts  Name your component here and use other components
-│   │   ├── lib.ts    Define functions here and in new files in this directory
-│   │   └── schema.ts   schema specific to this component
-│   ├── client/
-│   │   └── index.ts    Code that needs to run in the app that uses the
-│   │                   component. Generally the app interacts directly with
-│   │                   the component's exposed API (src/component/*).
-│   └── react/          Code intended to be used on the frontend goes here.
-│       │               Your are free to delete this if this component
-│       │               does not provide code.
-│       └── index.ts
-├── example/            example Convex app that uses this component
-│   └── convex/
-│       ├── _generated/       Files here are generated for the example app.
-│       ├── convex.config.ts  Imports and uses this component
-│       ├── myFunctions.ts    Functions that use the component
-│       └── schema.ts         Example app schema
-└── dist/               Publishing artifacts will be created here.
-```
-
----
-
-# Convex Y Convex
-
-[![npm version](https://badge.fury.io/js/@example%2Fy-convex.svg)](https://badge.fury.io/js/@example%2Fy-convex)
-
-<!-- START: Include on https://convex.dev/components -->
-
-- [ ] What is some compelling syntax as a hook?
-- [ ] Why should you use this component?
-- [ ] Links to docs / other resources?
-
-Found a bug? Feature request?
-[File it here](https://github.com/nucleus48/y-convex/issues).
+- 🚀 **Real-time Sync**: Collaborative editing with zero-latency feeling using
+  Convex's reactive engine.
+- 💾 **Persistent Storage**: Changes are automatically persisted to Convex.
+- 📸 **Automatic Snapshotting**: Automatically compresses document history into
+  snapshots to keep database queries fast and storage efficient.
+- ⚛️ **React-First**: Includes a drop-in React hook for easy integration.
+- 🔒 **Conflict-Free**: Leverages Yjs's CRDT (Conflict-free Replicated Data
+  Type) logic for reliable state merging.
 
 ## Installation
 
-Create a `convex.config.ts` file in your app's `convex/` folder and install the
-component by calling `use`:
+```sh
+npm install @nucleus48/y-convex yjs
+```
+
+## Quick Start
+
+### 1. Register the component
+
+Create a `convex/convex.config.ts` file (or update your existing one) to include
+the `y-convex` component:
 
 ```ts
 // convex/convex.config.ts
 import { defineApp } from "convex/server";
-import yConvex from "@nucleus48/y-convex/convex.config.js";
+import yconvex from "@nucleus48/y-convex/convex.config";
 
 const app = defineApp();
-app.use(yConvex);
+app.use(yconvex);
 
 export default app;
 ```
 
-## Usage
+### 2. Expose the API
+
+Create a file named `convex/yconvex.ts` to expose the component's functionality
+to your application:
 
 ```ts
+// convex/yconvex.ts
+import { exposeApi } from "@nucleus48/y-convex";
 import { components } from "./_generated/api";
 
-export const addComment = mutation({
-  args: { text: v.string(), targetId: v.string() },
-  handler: async (ctx, args) => {
-    return await ctx.runMutation(components.yConvex.lib.add, {
-      text: args.text,
-      targetId: args.targetId,
-      userId: await getAuthUserId(ctx),
-    });
-  },
-});
+export const { init, push, pull } = exposeApi(components.yconvex);
 ```
 
-See more example usage in [example.ts](./example/convex/example.ts).
+### 3. Use in your React app
 
-### HTTP Routes
+Now you can use the `useYConvexSync` hook to synchronize a Yjs `Doc` with
+Convex:
 
-You can register HTTP routes for the component to expose HTTP endpoints:
+```tsx
+import { useMemo } from "react";
+import * as Y from "yjs";
+import { useYConvexSync } from "@nucleus48/y-convex/react";
+import { api } from "../convex/_generated/api";
 
-```ts
-import { httpRouter } from "convex/server";
-import { registerRoutes } from "@nucleus48/y-convex";
-import { components } from "./_generated/api";
+export default function CollaborativeEditor({ docId }) {
+  // 1. Initialize a Y.Doc
+  const doc = useMemo(() => new Y.Doc(), []);
 
-const http = httpRouter();
+  // 2. Sync it with Convex
+  // Note: api.yconvex refers to the file created in step 2
+  useYConvexSync(api.yconvex, docId, doc);
 
-registerRoutes(http, components.yConvex, {
-  pathPrefix: "/comments",
-});
+  // 3. Use standard Yjs patterns
+  const yText = doc.getText("content");
 
-export default http;
+  // ... rest of your editor logic
+}
 ```
 
-This will expose a GET endpoint that returns the most recent comment as JSON.
-The endpoint requires a `targetId` query parameter. See
-[http.ts](./example/convex/http.ts) for a complete example.
+## How It Works
 
-<!-- END: Include on https://convex.dev/components -->
+### The Sync Loop
 
-Run the example:
+1. **Initialization**: When the hook mounts, it calls `init` to fetch the
+   current server state vector and merged updates.
+2. **Pushing Changes**: Local updates on the `Y.Doc` are caught via the `update`
+   event and pushed to Convex using a `push` mutation.
+3. **Pulling Changes**: The hook subscribes to a `pull` query that reactively
+   provides new updates from other clients.
 
-```sh
-npm i
-npm run dev
-```
+### Snapshotting
+
+`y-convex` includes a built-in snapshotting mechanism. When the number of
+incremental updates for a document exceeds a threshold (default 100), the
+component automatically:
+
+1. Merges all existing updates and snapshots into a single block.
+2. Uploads this merged state to Convex File Storage.
+3. Cleans up the old incremental updates from the database.
+
+This ensures that the initial load time remains fast even for long-lived
+documents with thousands of edits.
+
+## API Reference
+
+### Backend API (`@nucleus48/y-convex`)
+
+#### `exposeApi(component)`
+
+Used in your `convex/` directory to re-export the component's functions.
+
+### Frontend API (`@nucleus48/y-convex/react`)
+
+#### `useYConvexSync(api, docId, doc)`
+
+A React hook to synchronize a Yjs doc.
+
+- `api`: The API object containing `init`, `push`, and `pull` (created via
+  `exposeApi`).
+- `docId`: A string identifying the document.
+- `doc`: The `Y.Doc` instance to sync.
+
+## Developing and Running Examples
+
+The repository includes an example project to help you get started or test
+changes.
+
+1.  **Clone and Install**:
+
+    ```sh
+    git clone https://github.com/nucleus48/y-convex.git
+    cd y-convex
+    npm install
+    ```
+
+2.  **Run Development Mode**:
+    ```sh
+    npm run dev
+    ```
+    This will start the Convex backend and a Vite frontend for the example app.
+
+## License
+
+Apache-2.0
