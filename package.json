@@ -1,6 +1,6 @@
 {
-  "name": "@nucleus48/y-convex",
-  "description": "A y convex component for Convex.",
+  "name": "y-convex",
+  "description": "Real-time, serverless Yjs synchronization for Convex. Persist and sync collaborative documents without managing WebSocket servers.",
   "repository": "github:nucleus48/y-convex",
   "homepage": "https://github.com/nucleus48/y-convex#readme",
   "bugs": {

@@ -1,6 +1,6 @@
-# @nucleus48/y-convex
+# y-convex
 
-[![npm version](https://img.shields.io/npm/v/@nucleus48/y-convex.svg)](https://www.npmjs.com/package/@nucleus48/y-convex)
+[![npm version](https://img.shields.io/npm/v/y-convex.svg)](https://www.npmjs.com/package/y-convex)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 **Real-time Yjs synchronization for Convex.**
@@ -34,7 +34,7 @@ offers several advantages:
 ## Installation
 
 ```sh
-npm install @nucleus48/y-convex yjs
+npm install y-convex yjs
 ```
 
 ## Quick Start
@@ -47,7 +47,7 @@ the `y-convex` component:
 ```ts
 // convex/convex.config.ts
 import { defineApp } from "convex/server";
-import yconvex from "@nucleus48/y-convex/convex.config";
+import yconvex from "y-convex/convex.config";
 
 const app = defineApp();
 app.use(yconvex);
@@ -62,7 +62,7 @@ to your application:
 
 ```ts
 // convex/yconvex.ts
-import { exposeApi } from "@nucleus48/y-convex";
+import { exposeApi } from "y-convex";
 import { components } from "./_generated/api";
 
 export const { init, push, pull } = exposeApi(components.yconvex);
@@ -76,7 +76,7 @@ Convex:
 ```tsx
 import { useMemo } from "react";
 import * as Y from "yjs";
-import { useYConvexSync } from "@nucleus48/y-convex/react";
+import { useYConvexSync } from "y-convex/react";
 import { api } from "../convex/_generated/api";
 
 export default function CollaborativeEditor({ docId }) {
