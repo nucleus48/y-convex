@@ -120,13 +120,13 @@ documents with thousands of edits.
 
 ## API Reference
 
-### Backend API (`@nucleus48/y-convex`)
+### Backend API (`y-convex`)
 
 #### `exposeApi(component)`
 
 Used in your `convex/` directory to re-export the component's functions.
 
-### Frontend API (`@nucleus48/y-convex/react`)
+### Frontend API (`y-convex/react`)
 
 #### `useYConvexSync(api, docId, doc)`
 

@@ -47,5 +47,5 @@ export declare const internal: FilterApi<
 >;
 
 export declare const components: {
-  yconvex: import("@nucleus48/y-convex/_generated/component.js").ComponentApi<"yconvex">;
+  yconvex: import("y-convex/_generated/component.js").ComponentApi<"yconvex">;
 };
