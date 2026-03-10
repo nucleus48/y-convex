@@ -1,7 +1,11 @@
 # y-convex
 
 [![npm version](https://img.shields.io/npm/v/y-convex.svg)](https://www.npmjs.com/package/y-convex)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![License](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+[![Convex](https://img.shields.io/badge/Convex-Backend-EE714B.svg)](https://convex.dev)
+[![Yjs](https://img.shields.io/badge/Yjs-CRDT-blue.svg)](https://docs.yjs.dev/)
+[![React](https://img.shields.io/badge/React-Hooks-61DAFB.svg)](https://react.dev)
+[![Typescript](https://img.shields.io/badge/Typescript-Ready-3178C6.svg)](https://www.typescriptlang.org/)
 
 **Real-time Yjs synchronization for Convex.**
 
@@ -156,6 +160,11 @@ changes.
     ```
     This will start the Convex backend and a Vite frontend for the example app.
 
+## Keywords
+
+`convex`, `yjs`, `crdt`, `collaborative-editing`, `react`, `serverless`,
+`real-time-sync`, `snapshotting`
+
 ## License
 
-Apache-2.0
+ISC
