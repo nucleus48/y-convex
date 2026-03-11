@@ -1,19 +1,31 @@
 {
   "name": "y-convex",
-  "description": "Real-time, serverless Yjs synchronization for Convex. Persist and sync collaborative documents without managing WebSocket servers.",
-  "repository": "github:nucleus48/y-convex",
-  "homepage": "https://github.com/nucleus48/y-convex#readme",
-  "bugs": {
-    "url": "https://github.com/nucleus48/y-convex/issues"
-  },
   "version": "0.1.1",
   "license": "ISC",
+  "type": "module",
+  "author": "nucleus48 <nucleuserumagborie@gmail.com>",
+  "homepage": "https://github.com/nucleus48/y-convex#readme",
+  "description": "Real-time, serverless Yjs synchronization for Convex. Persist and sync collaborative documents without managing WebSocket servers.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nucleus48/y-convex.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nucleus48/y-convex/issues",
+    "email": "nucleuserumagborie@gmail.com"
+  },
   "keywords": [
     "convex",
+    "yjs",
+    "crdt",
+    "collaborative-editing",
+    "react",
+    "serverless",
+    "real-time-sync",
+    "snapshotting",
     "component",
     "y-convex"
   ],
-  "type": "module",
   "scripts": {
     "dev": "run-p -r 'dev:*'",
     "dev:backend": "convex dev --typecheck-components",
@@ -50,7 +62,6 @@
       "types": "./dist/react/index.d.ts",
       "default": "./dist/react/index.js"
     },
-    "./test": "./src/test.ts",
     "./_generated/component.js": {
       "types": "./dist/component/_generated/component.d.ts"
     },

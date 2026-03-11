@@ -38,7 +38,7 @@ offers several advantages:
 ## Installation
 
 ```sh
-npm install y-convex yjs
+pnpm add y-convex yjs
 ```
 
 ## Quick Start
@@ -159,11 +159,6 @@ changes.
     npm run dev
     ```
     This will start the Convex backend and a Vite frontend for the example app.
-
-## Keywords
-
-`convex`, `yjs`, `crdt`, `collaborative-editing`, `react`, `serverless`,
-`real-time-sync`, `snapshotting`
 
 ## License
 
