@@ -151,12 +151,12 @@ changes.
     ```sh
     git clone https://github.com/nucleus48/y-convex.git
     cd y-convex
-    npm install
+    pnpm install
     ```
 
 2.  **Run Development Mode**:
     ```sh
-    npm run dev
+    pnpm dev
     ```
     This will start the Convex backend and a Vite frontend for the example app.
 

@@ -36,7 +36,7 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: pnpm run build
+        run: pnpm run build:clean
 
       - name: Release
         uses: cycjimmy/semantic-release-action@v6
