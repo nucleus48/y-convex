@@ -15,15 +15,8 @@
     "email": "nucleuserumagborie@gmail.com"
   },
   "keywords": [
-    "convex",
     "yjs",
-    "crdt",
-    "collaborative-editing",
-    "react",
-    "serverless",
-    "real-time-sync",
-    "snapshotting",
-    "component",
+    "convex",
     "y-convex"
   ],
   "scripts": {
